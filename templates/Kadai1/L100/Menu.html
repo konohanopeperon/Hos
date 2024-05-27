@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>メニュー画面</title>
+</head>
+<body>
+<h2>ようこそ、{{ request.user.username }}さん！</h2>
+<p>ここにメニューの内容を表示します。</p>
+<a href="{% url 'logout' %}">ログアウト</a>
+</body>
+</html>
