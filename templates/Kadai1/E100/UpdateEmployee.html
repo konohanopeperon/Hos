@@ -1,0 +1,25 @@
+<!-- templates/update_employee.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>従業員情報更新</title>
+</head>
+<body>
+<h1>従業員情報更新</h1>
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<form method="post" >
+    {% csrf_token %}
+    <p>
+        <label for="emppasswd">新しいパスワード:</label>
+        <input type="password" id="emppasswd" name="emppasswd" maxlength="256" required>
+    </p>
+    <button type="submit">更新</button>
+</form>
+</body>
+</html>

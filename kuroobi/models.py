@@ -8,6 +8,9 @@ class Employee(models.Model):
     emppasswd = models.CharField(max_length=256)
     emprole = models.IntegerField()
 
+    def __str__(self):
+        return f'{self.empfname} {self.emplname}'
+
 
 class Tabyouin(models.Model):
     tabyouinid = models.CharField(max_length=8, primary_key=True)
