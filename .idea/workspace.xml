@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="L100">
-      <change afterPath="$PROJECT_DIR$/kuroobi/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kuroobi/migrations/0002_tabyouin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/RegisterEmployee.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/UpdateEmployee.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Doctor.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" afterDir="false" />
+    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="Hos">
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_confirm.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kuroobi/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Menu.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +130,10 @@
       <workItem from="1716951962149" duration="7415000" />
       <workItem from="1716979305800" duration="2348000" />
       <workItem from="1717027969501" duration="12237000" />
-      <workItem from="1717114611991" duration="3566000" />
+      <workItem from="1717114611991" duration="6465000" />
+      <workItem from="1717325487676" duration="1066000" />
+      <workItem from="1717373804250" duration="10791000" />
+      <workItem from="1717461118708" duration="4618000" />
     </task>
     <task id="LOCAL-00001" summary="up">
       <option name="closed" value="true" />
@@ -150,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716779698081</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Hos">
+      <option name="closed" value="true" />
+      <created>1717118735258</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1717118735258</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +180,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="up" />
     <MESSAGE value="L100" />
-    <option name="LAST_COMMIT_MESSAGE" value="L100" />
+    <MESSAGE value="Hos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hos" />
   </component>
 </project>

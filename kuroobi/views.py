@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-from .forms import EmployeeForm
-from .models import Employee
+from .forms import EmployeeForm, TabyouinForm
+from .models import Employee, Tabyouin
 
 
 def login_view(request):
@@ -73,7 +73,7 @@ def register_employee(request):
             messages.success(request, '従業員が正常に登録されました。')
             return redirect('Admin.html')
 
-    return render(request, 'Kadai1/E100/registeremployee.html')
+    return render(request, 'Kadai1/E100/Registeremployee.html')
 
 
 def update_employee(request):
@@ -91,3 +91,39 @@ def update_employee(request):
 
             return redirect('update_employee')
     return render(request, 'Kadai1/E100/updateemployee.html')
+
+
+def tabyouin_register(request):
+    if request.method == 'POST':
+        tabyouinid = request.POST.get('tabyouinid')
+        tabyouinmei = request.POST.get('tabyouinmei')
+        abyouinaddres = request.POST.get('abyouinaddres')
+        tabyouintel = request.POST.get('tabyouintel')
+        abyouinshihonkin = request.POST.get('abyouinshihonkin')
+        kyukyu = request.POST.get('kyukyu')
+
+        if Tabyouin.objects.filter(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
+                                   tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu).exists():
+            messages.error(request, 'この病院はすでに登録されています。')
+        else:
+            return render(request, 'Kadai1/H100/tabyouin_confirm.html')
+    return render(request, 'Kadai1/H100/tabyouin_register.html')
+
+
+def tabyouin_confirm(request):
+    if request.method == 'POST':
+        tabyouinid = request.POST.get('tabyouinid')
+        tabyouinmei = request.POST.get('tabyouinmei')
+        abyouinaddres = request.POST.get('abyouinaddres')
+        tabyouintel = request.POST.get('tabyouintel')
+        abyouinshihonkin = request.POST.get('abyouinshihonkin')
+        kyukyu = request.POST.get('kyukyu')
+        tabyouin = Tabyouin(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
+                            tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu)
+        tabyouin.save()
+        return redirect('tabyouin_register')
+    return render(request,'Kadai1/H100/tabyouin_register.html')
+
+
+def tabyouin_success(request):
+    return render(request, 'Kadai1/H100/tabyouin_success.html')

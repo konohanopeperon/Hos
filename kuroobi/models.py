@@ -28,6 +28,7 @@ class Patient(models.Model):
     hokenmei = models.CharField(max_length=64)
     hokenexp = models.DateField()
 
+
 class Medicine(models.Model):
     medicineid = models.CharField(max_length=8, primary_key=True)
     medicinename = models.CharField(max_length=64)
