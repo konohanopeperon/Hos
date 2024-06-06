@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>受付画面</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,6 +46,18 @@
     </style>
 </head>
 <body>
-
+<div class="container">
+    <header>
+        <h1>受付画面</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url  'register_employee' %}">従業員パスワード変更</a></li>
+            <li><a href="#hospital-list">患者登録</a></li>
+            <li><a href="#add-hospital">患者管理</a></li>
+            <li><a href="#change-password">患者検索</a></li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>

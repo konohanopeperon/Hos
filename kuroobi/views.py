@@ -89,6 +89,15 @@ def update_employee(request):
     return render(request, 'Kadai1/E100/updateemployee.html')
 
 
+def employee_list(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        if query:
+            employees = Employee.objects.filter(empid=query)
+        return render(request, 'Kadai1/E100/confirmadmin.html', {'employees': employees, 'query': query})
+    return render(request, 'Kadai1/E100/UpdateEmployee.html')
+
+
 def tabyouin_list(request):
     query = request.GET.get('q')
     if query:
