@@ -53,10 +53,6 @@ def doctor_dashboard(request):
     return render(request, 'Kadai1/L100/Doctor.html')
 
 
-def admin_check(user):
-    return user.is_superuser
-
-
 def register_employee(request):
     if request.method == 'POST':
         empid = request.POST.get('empid')
@@ -93,6 +89,15 @@ def update_employee(request):
     return render(request, 'Kadai1/E100/updateemployee.html')
 
 
+def tabyouin_list(request):
+    query = request.GET.get('q')
+    if query:
+        tabyouins = Tabyouin.objects.filter(abyouinaddres__icontains=query)
+    else:
+        tabyouins = Tabyouin.objects.all()
+    return render(request, 'Kadai1/H100/tabyouin_list.html', {'tabyouins': tabyouins, 'query': query})
+
+
 def tabyouin_register(request):
     if request.method == 'POST':
         tabyouinid = request.POST.get('tabyouinid')
@@ -106,23 +111,11 @@ def tabyouin_register(request):
                                    tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu).exists():
             messages.error(request, 'この病院はすでに登録されています。')
         else:
-            return render(request, 'Kadai1/H100/tabyouin_confirm.html')
+            tabyouin = Tabyouin(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
+                                tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu)
+            tabyouin.save()
+            return redirect('tabyouin_success')
     return render(request, 'Kadai1/H100/tabyouin_register.html')
-
-
-def tabyouin_confirm(request):
-    if request.method == 'POST':
-        tabyouinid = request.POST.get('tabyouinid')
-        tabyouinmei = request.POST.get('tabyouinmei')
-        abyouinaddres = request.POST.get('abyouinaddres')
-        tabyouintel = request.POST.get('tabyouintel')
-        abyouinshihonkin = request.POST.get('abyouinshihonkin')
-        kyukyu = request.POST.get('kyukyu')
-        tabyouin = Tabyouin(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
-                            tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu)
-        tabyouin.save()
-        return redirect('tabyouin_register')
-    return render(request,'Kadai1/H100/tabyouin_register.html')
 
 
 def tabyouin_success(request):

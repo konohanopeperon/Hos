@@ -2,10 +2,10 @@
 <html lang="ja">
 <!DOCTYPE html>
 <head>
-    <title>従業員登録</title>
+    <title>他病院登録</title>
 </head>
 <body>
-<h1>従業員登録</h1>
+<h1>他病院登録</h1>
 {% if messages %}
     <ul>
         {% for message in messages %}
@@ -16,20 +16,20 @@
 <form method="post" >
     {% csrf_token %}
     <p>
-        <label for="tabyouinid">他病院ID:</label>
+        <label for="tabyouinid">病院ID:</label>
         <input type="text" id="tabyouinid" name="tabyouinid" maxlength="8" required>
     </p>
     <p>
-        <label for="tabyouinmei">他病院名:</label>
+        <label for="tabyouinmei">病院名:</label>
         <input type="text" id="tabyouinmei" name="tabyouinmei" maxlength="64" required>
     </p>
     <p>
-        <label for="abyouinaddres">他病院住所:</label>
+        <label for="abyouinaddres">住所:</label>
         <input type="text" id="abyouinaddres" name="abyouinaddres" maxlength="64" required>
     </p>
     <p>
         <label for="tabyouintel">電話番号:</label>
-        <input type="text" id="tabyouintel" name="tabyouintel" maxlength="256" required>
+        <input type="text" id="tabyouintel" name="tabyouintel" maxlength="13" required>
     </p>
     <p>
         <label for="abyouinshihonkin">資本金:</label>

@@ -1,0 +1,36 @@
+<!-- tabyouin_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>病院一覧</title>
+</head>
+<body>
+<h1>病院一覧</h1>
+
+<form method="GET" action="{% url 'tabyouin_list' %}">
+    <input type="text" name="q" value="{{ query|default:' ' }}" placeholder="住所で検索">
+    <button type="submit">検索</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>住所</th>
+        <th>電話番号</th>
+        <th>資本金</th>
+        <th>救急</th>
+    </tr>
+    {% for tabyouin in tabyouins %}
+        <tr>
+            <td>{{ tabyouin.tabyouinid }}</td>
+            <td>{{ tabyouin.tabyouinmei }}</td>
+            <td>{{ tabyouin.abyouinaddres }}</td>
+            <td>{{ tabyouin.tabyouintel }}</td>
+            <td>{{ tabyouin.abyouinshihonkin }}</td>
+            <td>{{ tabyouin.kyukyu }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('register_employee/', views.register_employee, name='register_employee'),
     path('update_employee/', views.update_employee, name='update_employee'),
+    path('tabyouin/', views.tabyouin_list, name='tabyouin_list'),
     path('tabyouin/register/', views.tabyouin_register, name='tabyouin_register'),
-    path('tabyouin/confirm/', views.tabyouin_confirm, name='tabyouin_confirm'),
     path('tabyouin/success/', views.tabyouin_success, name='tabyouin_success'),
 ]

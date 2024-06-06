@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="Hos">
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_confirm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kuroobi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_confirm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,10 @@
       <workItem from="1717114611991" duration="6465000" />
       <workItem from="1717325487676" duration="1066000" />
       <workItem from="1717373804250" duration="10791000" />
-      <workItem from="1717461118708" duration="4618000" />
+      <workItem from="1717461118708" duration="6629000" />
+      <workItem from="1717553128232" duration="5852000" />
+      <workItem from="1717588552279" duration="993000" />
+      <workItem from="1717632918743" duration="1046000" />
     </task>
     <task id="LOCAL-00001" summary="up">
       <option name="closed" value="true" />
@@ -159,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717118735258</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Hos">
+      <option name="closed" value="true" />
+      <created>1717469740802</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717469740802</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
