@@ -1,6 +1,6 @@
 <!-- tabyouin_list.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>病院一覧</title>
 </head>
@@ -8,7 +8,7 @@
 <h1>病院一覧</h1>
 
 <form method="GET" action="{% url 'tabyouin_list' %}">
-    <input type="text" name="q" value="{{ query|default:' ' }}" placeholder="住所で検索">
+    <input type="text" name="q"  placeholder="住所で検索">
     <button type="submit">検索</button>
 </form>
 

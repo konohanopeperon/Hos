@@ -5,18 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="Hos">
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/confirmadmin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/passwordupdate.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/successupdate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Kadai1/E100/UpdateEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/E100/UpdateEmployee.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/E100/confirmadmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/E100/confirmpassword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/E100/passwordupdate.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/E100/passwordupdate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Admin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -59,7 +64,7 @@
     &quot;Django サーバー.Hos.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -133,7 +138,11 @@
       <workItem from="1717461118708" duration="6629000" />
       <workItem from="1717553128232" duration="5852000" />
       <workItem from="1717588552279" duration="993000" />
-      <workItem from="1717632918743" duration="12380000" />
+      <workItem from="1717632918743" duration="16573000" />
+      <workItem from="1717719590079" duration="8245000" />
+      <workItem from="1717979617604" duration="10381000" />
+      <workItem from="1718065471974" duration="12019000" />
+      <workItem from="1718103824831" duration="654000" />
     </task>
     <task id="LOCAL-00001" summary="up">
       <option name="closed" value="true" />
@@ -175,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717634480129</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Hos">
+      <option name="closed" value="true" />
+      <created>1717649671455</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717649671455</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,5 +215,41 @@
     <MESSAGE value="L100" />
     <MESSAGE value="Hos" />
     <option name="LAST_COMMIT_MESSAGE" value="Hos" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>83</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>84</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
+          <line>85</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

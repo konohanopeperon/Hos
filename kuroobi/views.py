@@ -3,9 +3,11 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.contrib.auth import update_session_auth_hash
 from .forms import EmployeeForm, TabyouinForm
 from .models import Employee, Tabyouin
+from django.contrib.auth.hashers import check_password, make_password
+from django.shortcuts import render, get_object_or_404, redirect
 
 
 def login_view(request):
@@ -72,30 +74,41 @@ def register_employee(request):
     return render(request, 'Kadai1/E100/Registeremployee.html')
 
 
-def update_employee(request):
-    if request.method == 'POST':
-        current_user = request.user
-        new_password = request.POST.get('emppasswd')
-
-        if Employee.objects.filter(empid=current_user.username).exists():
-            employee = Employee.objects.get(empid=current_user.username)
-            employee.emppasswd = new_password
-            employee.save()
-            messages.success(request, 'パスワードが正常に更新されました。')
-        else:
-            messages.error(request, '従業員情報が見つかりませんでした。')
-
-            return redirect('update_employee')
-    return render(request, 'Kadai1/E100/updateemployee.html')
-
-
 def employee_list(request):
     if request.method == 'GET':
-        query = request.GET.get('q')
-        if query:
-            employees = Employee.objects.filter(empid=query)
-        return render(request, 'Kadai1/E100/confirmadmin.html', {'employees': employees, 'query': query})
-    return render(request, 'Kadai1/E100/UpdateEmployee.html')
+        employees = Employee.objects.all()
+        return render(request, 'Kadai1/E100/UpdateEmployee.html', {'employees': employees})
+
+
+def employee_kensaku(request):
+    query = request.GET.get('query')
+    if query:
+        employees = Employee.objects.filter(empid__icontains=query)
+    else:
+        employees = Employee.objects.all()
+    return render(request, 'Kadai1/E100/UpdateEmployee.html', {'employees': employees, 'query': query})
+
+
+def update_employee(request, empid):
+    employee = get_object_or_404(Employee, empid=empid)
+    if request.method == 'POST':
+        new_password = request.POST['new_password']
+        confirm_new_password = request.POST['confirm_new_password']
+
+        if new_password != confirm_new_password:
+            messages.error(request, 'パスワードが一致しません')
+        return render(request, 'Kadai1/E100/confirmpassword.html', {'employee': employee, 'new_password': new_password})
+    return render(request, 'Kadai1/E100/passwordupdate.html', {'employee': employee})
+
+
+def confirmupdate(request):
+    if request.method == 'POST':
+        empid = request.POST.get('empid')
+        new_password = request.POST.get("new_password")
+        employee = Employee.objects.get(empid=empid)
+        employee.emppasswd = new_password
+        employee.save()
+    return render(request, 'Kadai1/E100/successupdate.html')
 
 
 def tabyouin_list(request):
