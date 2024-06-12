@@ -17,5 +17,6 @@ urlpatterns = [
     path('kensaku/', views.employee_kensaku, name='employee_kensaku'),
     path('updateemployee/', views.update_employee, name='update_employee'),
     path('updateemployee/<int:empid>', views.update_employee, name='update_employee'),
-    path('confirm/', views.confirmupdate, name='confirmupdate')
+    path('confirm/', views.confirmupdate, name='confirmupdate'),
+    path('patient_register/', views.patient_register, name='patient_register'),
 ]

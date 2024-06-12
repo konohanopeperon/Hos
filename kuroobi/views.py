@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from .forms import EmployeeForm, TabyouinForm
-from .models import Employee, Tabyouin
+from .models import Employee, Tabyouin, Patient
 from django.contrib.auth.hashers import check_password, make_password
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -142,3 +142,25 @@ def tabyouin_register(request):
 
 def tabyouin_success(request):
     return render(request, 'Kadai1/H100/tabyouin_success.html')
+
+
+def patient_register(request):
+    if request.method == 'POST':
+        patid = request.POST.get('patid')
+        patfname = request.POST.get('patfname')
+        patlname = request.POST.get('patlname')
+        hokenmei = request.POST.get('hokenmei')
+        hokenexp = request.POST.get('hokenexp')
+
+        if Patient.objects.filter(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei,
+                                  hokenexp=hokenexp).exists():
+            messages.error(request, 'この患者はすでに登録されています。')
+        else:
+            patient = Patient(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei, hokenexp=hokenexp)
+            patient.save()
+            return redirect('patient_success')
+    return render(request, 'Kadai1/P100/patient_register.html')
+
+
+def patient_success(request):
+    return render(request, 'Kadai1/P100/patient_success.html')

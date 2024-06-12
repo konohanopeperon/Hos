@@ -23,8 +23,8 @@ class Tabyouin(models.Model):
 
 class Patient(models.Model):
     patid = models.CharField(max_length=8, primary_key=True)
-    patfame = models.CharField(max_length=64)
-    patlame = models.CharField(max_length=64)
+    patfname = models.CharField(max_length=64)
+    patlname = models.CharField(max_length=64)
     hokenmei = models.CharField(max_length=64)
     hokenexp = models.DateField()
 
