@@ -50,9 +50,10 @@
     <header>
         <h1>受付画面</h1>
     </header>
+    <p>従業員ID:{{ empid }}</p>
     <nav>
         <ul>
-            <li><a href="{% url  'register_employee' %}">従業員パスワード変更</a></li>
+            <li><a href="{% url  'update_employee' empid %}">従業員パスワード変更</a></li>
             <li><a href="#hospital-list">患者登録</a></li>
             <li><a href="#add-hospital">患者管理</a></li>
             <li><a href="#change-password">患者検索</a></li>

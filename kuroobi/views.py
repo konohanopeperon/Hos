@@ -25,9 +25,9 @@ def login_view(request):
             if employee.emprole == 0:
                 return render(request, 'Kadai1/L100/admin.html')
             elif employee.emprole == 1:
-                return render(request, 'Kadai1/L100/reception.html')
+                return render(request, 'Kadai1/L100/reception.html', {'empid': empid})
             elif employee.emprole == 2:
-                return render(request, 'Kadai1/L100/doctor.html')
+                return render(request, 'Kadai1/L100/doctor.html', {'empid': empid})
         else:
             messages.error(request, "ユーザIDもしくはパスワードが違います")
             return render(request, 'Kadai1/L100/login.html')

@@ -23,8 +23,8 @@
             <td>{{ employee.empid }}</td>
             <td>{{ employee.emplname }}{{ employee.empfname }}</td>
             <td>
-                <form method="GET" action="{% url 'update_employee' employee.empid %}">
-                    <button type="submit">変更</button>
+                <form method="GET" action="{% url 'update_employee_admin' employee.empid %}">
+                    <button type="submit">パスワード変更</button>
                 </form>
             </td>
         </tr>
