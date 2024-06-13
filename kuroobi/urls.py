@@ -19,4 +19,9 @@ urlpatterns = [
     path('updateemployee/<int:empid>', views.update_employee, name='update_employee'),
     path('confirm/', views.confirmupdate, name='confirmupdate'),
     path('patient_register/', views.patient_register, name='patient_register'),
+    path('patient_success/', views.patient_success, name='patient_success'),
+    path('patient_kensaku/', views.patient_kensaku, name='patient_kensaku'),
+    path('update_hoken/', views.update_hoken, name='update_hoken'),
+    path('update_hoken/<int:patid>', views.update_hoken, name='update_hoken'),
+    path('confirm_update_hoken', views.confirm_update_hoken, name='confirm_update_hoken'),
 ]

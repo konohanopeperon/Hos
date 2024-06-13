@@ -1,9 +1,12 @@
+from django.utils import timezone
+
 from django.shortcuts import render, redirect
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+
 from .forms import EmployeeForm, TabyouinForm
 from .models import Employee, Tabyouin, Patient
 from django.contrib.auth.hashers import check_password, make_password
@@ -69,7 +72,7 @@ def register_employee(request):
             employee = Employee(empid=empid, empfname=empfname, emplname=emplname, emppasswd=emppasswd, emprole=emprole)
             employee.save()
             messages.success(request, '従業員が正常に登録されました。')
-            return redirect('Admin.html')
+            return render(request, 'Kadai1/L100/Admin.html')
 
     return render(request, 'Kadai1/E100/Registeremployee.html')
 
@@ -164,3 +167,41 @@ def patient_register(request):
 
 def patient_success(request):
     return render(request, 'Kadai1/P100/patient_success.html')
+
+
+def update_hoken(request, patid):
+    patient = get_object_or_404(Patient, patid=patid)
+    if request.method == 'POST':
+        new_hokenmei = request.POST['new_hokenmei']
+        new_hokenexp = request.POST['new_hokenexp']
+
+        return render(request, 'Kadai1/P100/confirm_update_hoken.html',
+                      {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
+    return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
+
+
+def confirm_update_hoken(request):
+    if request.method == 'POST':
+        patid = request.POST.get('patid')
+        new_hokenmei = request.POST.get("new_hokenmei")
+        new_hokenexp = request.POST.get("new_hokenexp")
+        patient = Patient.objects.get(patid=patid)
+        patient.hokenmei = new_hokenmei
+        patient.hokenexp = new_hokenexp
+        patient.save()
+    return render(request, 'Kadai1/P100/success_update_hoken.html')
+
+
+def patient_kensaku(request):
+    query = request.GET.get('query')
+    today = timezone.now().date()
+    patients = []
+    if query:
+        patienter = Patient.objects.all()
+        for patient in patienter:
+            if patient.hokenexp <= today:
+                patients.append(patient)
+
+    else:
+        patients = Patient.objects.all()
+    return render(request, 'Kadai1/P100/patient_list.html', {'patients': patients, 'query': query})

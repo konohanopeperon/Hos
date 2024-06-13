@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="受付Ⅳ完成">
-      <change afterPath="$PROJECT_DIR$/kuroobi/migrations/0004_rename_patfame_patient_patfname_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/P100/patient_register.html" afterDir="false" />
+    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="受付Ⅴ完成">
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/P100/confirm_update_hoken.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/P100/patient_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/P100/success_update_hoken.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/Kadai1/P100/update_hoken.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kuroobi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Reception.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/P100/patient_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/P100/patient_register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/P100/patient_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/P100/patient_success.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +144,8 @@
       <workItem from="1717979617604" duration="10381000" />
       <workItem from="1718065471974" duration="12019000" />
       <workItem from="1718103824831" duration="3581000" />
-      <workItem from="1718151555254" duration="7033000" />
+      <workItem from="1718151555254" duration="15473000" />
+      <workItem from="1718237829375" duration="1757000" />
     </task>
     <task id="LOCAL-00001" summary="up">
       <option name="closed" value="true" />
@@ -207,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718156205299</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="受付Ⅴ完成">
+      <option name="closed" value="true" />
+      <created>1718159763003</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718159763003</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +243,8 @@
     <MESSAGE value="Hos" />
     <MESSAGE value="管理者④完成" />
     <MESSAGE value="受付Ⅳ完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="受付Ⅳ完成" />
+    <MESSAGE value="受付Ⅴ完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="受付Ⅴ完成" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -239,32 +252,12 @@
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
           <line>86</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>87</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>83</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>85</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/kuroobi/urls.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
