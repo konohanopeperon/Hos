@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
 from .forms import EmployeeForm, TabyouinForm
-from .models import Employee, Tabyouin, Patient
+from .models import Employee, Tabyouin, Patient, Medicine
 from django.contrib.auth.hashers import check_password, make_password
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -35,10 +35,6 @@ def login_view(request):
             messages.error(request, "ユーザIDもしくはパスワードが違います")
             return render(request, 'Kadai1/L100/login.html')
     return render(request, 'Kadai1/L100/login.html')
-
-
-def menu_view(request):
-    return render(request, 'Kadai1/L100/Menu.html')
 
 
 def logout_view(request):
@@ -205,3 +201,21 @@ def patient_kensaku(request):
     else:
         patients = Patient.objects.all()
     return render(request, 'Kadai1/P100/patient_list.html', {'patients': patients, 'query': query})
+
+
+def doctor_kensaku(request):
+    query = request.GET.get('query')
+    if query:
+        patients = Patient.objects.filter(patlname=query)
+    else:
+        patients = Patient.objects.all()
+    return render(request, 'Kadai1/P100/Docter_patient_list.html', {'patients': patients, 'query': query})
+
+
+def medicine_cart(request, patid):
+    patient = Patient.objects.get(patid=patid)
+    medicines = Medicine.objects.all()
+    if request.method == 'POST':
+        medicalcart = []
+
+    return render(request, 'Kadai1/D100/medical.html', {'patient': patient, 'medicines': medicines})

@@ -33,3 +33,7 @@ class Medicine(models.Model):
     medicineid = models.CharField(max_length=8, primary_key=True)
     medicinename = models.CharField(max_length=64)
     unit = models.CharField(max_length=8)
+
+
+class Medical(models.Model):
+    medicalid = models.CharField

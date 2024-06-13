@@ -7,7 +7,6 @@ urlpatterns = [
     path('reception/', views.reception_dashboard, name='reception_dashboard'),
     path('doctor/', views.doctor_dashboard, name='doctor_dashboard'),
     path('login/', views.login, name='login'),
-    path('menu/', views.menu_view, name='menu'),
     path('logout/', views.logout_view, name='logout'),
     path('register_employee/', views.register_employee, name='register_employee'),
     path('employeelist/', views.employee_list, name='employee_list'),
@@ -24,4 +23,6 @@ urlpatterns = [
     path('update_hoken/', views.update_hoken, name='update_hoken'),
     path('update_hoken/<int:patid>', views.update_hoken, name='update_hoken'),
     path('confirm_update_hoken', views.confirm_update_hoken, name='confirm_update_hoken'),
+    path('doctor_kensaku/', views.doctor_kensaku, name='doctor_kensaku'),
+    path('medicine_cart/<int:patid>', views.medicine_cart, name='medicine_cart'),
 ]
