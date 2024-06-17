@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
 from .forms import EmployeeForm, TabyouinForm
-from .models import Employee, Tabyouin, Patient, Medicine
+from .models import Employee, Tabyouin, Patient, Medicine, Prescription
 from django.contrib.auth.hashers import check_password, make_password
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -67,8 +67,7 @@ def register_employee(request):
         else:
             employee = Employee(empid=empid, empfname=empfname, emplname=emplname, emppasswd=emppasswd, emprole=emprole)
             employee.save()
-            messages.success(request, '従業員が正常に登録されました。')
-            return render(request, 'Kadai1/L100/Admin.html')
+            return render(request, 'Kadai1/E100/register_success.html')
 
     return render(request, 'Kadai1/E100/Registeremployee.html')
 
@@ -212,10 +211,85 @@ def doctor_kensaku(request):
     return render(request, 'Kadai1/P100/Docter_patient_list.html', {'patients': patients, 'query': query})
 
 
-def medicine_cart(request, patid):
-    patient = Patient.objects.get(patid=patid)
+def prescription_list(request, patid):
+    patient = get_object_or_404(Patient, patid=patid)
     medicines = Medicine.objects.all()
-    if request.method == 'POST':
-        medicalcart = []
+    prescriptions = request.session.get(f'prescriptions_{patid}', [])
 
-    return render(request, 'Kadai1/D100/medical.html', {'patient': patient, 'medicines': medicines})
+    # 薬剤名を追加
+    prescription_details = []
+    for index, pres in enumerate(prescriptions):
+        medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
+        prescription_details.append({
+            'index': index,
+            'medicine_name': medicine.medicinename,
+            'dosage': pres['dosage']
+        })
+
+    return render(request, 'Kadai1/D100/medical.html', {
+        'patient': patient,
+        'medicines': medicines,
+        'prescriptions': prescription_details,
+    })
+
+
+def add_prescription(request, patid):
+    medicine_id = request.POST.get('medicine')
+    dosage = request.POST.get('dosage')
+
+    prescriptions = request.session.get(f'prescriptions_{patid}', [])
+    prescriptions.append({
+        'medicine': medicine_id,
+        'dosage': dosage
+    })
+    request.session[f'prescriptions_{patid}'] = prescriptions
+    return redirect('prescription_list', patid=patid)
+
+
+def delete_prescription(request, patid, index):
+    prescriptions = request.session.get(f'prescriptions_{patid}', [])
+    if 0 <= index < len(prescriptions):
+        del prescriptions[index]
+    request.session[f'prescriptions_{patid}'] = prescriptions
+    return redirect('prescription_list', patid=patid)
+
+
+def confirm_prescription(request, patid):
+    if request.method == 'POST':
+        prescriptions = request.session.get(f'prescriptions_{patid}', [])
+        patient = get_object_or_404(Patient, patid=patid)
+        for pres in prescriptions:
+            medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
+            Prescription.objects.create(
+                patient=patient,
+                medicine=medicine,
+                dosage=pres['dosage'],
+                created_at=timezone.now()
+            )
+        del request.session[f'prescriptions_{patid}']
+        return redirect('prescription_list', patid=patid)
+    else:
+        prescriptions = request.session.get(f'prescriptions_{patid}', [])
+        medicine_objects = {m.medicineid: m for m in Medicine.objects.all()}
+        context = {
+            'patient': get_object_or_404(Patient, patid=patid),
+            'prescriptions': prescriptions,
+            'medicines': medicine_objects
+        }
+        return render(request, 'Kadai1/D100/medical.html', context)
+
+
+def patient_search(request):
+    query = request.GET.get('query')
+    if query:
+        patients = Patient.objects.filter(patid=query)
+    else:
+        patients = Patient.objects.all()
+    return render(request, 'Kadai1/D100/patientsearch.html', {'patients': patients, 'query': query})
+
+
+def patient_prescriptions(request, patid):
+    patient = get_object_or_404(Patient, patid=patid)
+
+    prescriptions = Prescription.objects.filter(patient=patient).select_related('medicine')
+    return render(request, 'Kadai1/D100/prescripsions.html', {'patient': patient, 'prescriptions': prescriptions})

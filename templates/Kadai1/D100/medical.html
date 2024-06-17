@@ -4,18 +4,40 @@
     <title>薬投与指示</title>
 </head>
 <body>
-<h1>薬投与指示</h1>
-<h2>{{ patient.patlname }}{{ patient.patfname }}</h2>
-<form method="POST">
+<h1>薬投与指示 - 患者: {{ patient.patlname }} {{ patient.patfname }}</h1>
+<form method="post" action="{% url 'add_prescription' patient.patid %}">
     {% csrf_token %}
-    <label for="medicine">薬剤を選択してください:</label>
-    <select id="medicine" name="medicine">
+    <label for="medicine">薬:</label>
+    <select name="medicine" id="medicine">
         {% for medicine in medicines %}
-            <option value="{{ medicine.medicinename }}">{{ medicine.medicinename }}</option>
+            <option value="{{ medicine.medicineid }}">{{ medicine.medicinename }}</option>
         {% endfor %}
-    </select><br>
-    <label for="quantity">数量を入力してください:</label>
-    <input type="number" id="quantity" name="quantity" min="1"><br>
+    </select>
+    <br>
+
+    <label for="dosage">投与量:</label>
+    <input type="text" name="dosage" id="dosage">
+    <br>
+
+    <button type="submit">追加</button>
+</form>
+
+<h2>現在の投与指示</h2>
+<ul>
+    {% for pres in prescriptions %}
+        <li>
+            <p>薬: {{ pres.medicine_name }}</p>
+            <p>投与量: {{ pres.dosage }}</p>
+            <form method="post" action="{% url 'delete_prescription' patient.patid pres.index %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">削除</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'confirm_prescription' patient.patid %}">
+    {% csrf_token %}
     <button type="submit">確認</button>
 </form>
 </body>

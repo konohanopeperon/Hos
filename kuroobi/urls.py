@@ -24,5 +24,10 @@ urlpatterns = [
     path('update_hoken/<int:patid>', views.update_hoken, name='update_hoken'),
     path('confirm_update_hoken', views.confirm_update_hoken, name='confirm_update_hoken'),
     path('doctor_kensaku/', views.doctor_kensaku, name='doctor_kensaku'),
-    path('medicine_cart/<int:patid>', views.medicine_cart, name='medicine_cart'),
+    path('prescription/<str:patid>/', views.prescription_list, name='prescription_list'),
+    path('prescription/<str:patid>/add/', views.add_prescription, name='add_prescription'),
+    path('prescription/<str:patid>/delete/<int:index>/', views.delete_prescription, name='delete_prescription'),
+    path('prescription/<str:patid>/confirm/', views.confirm_prescription, name='confirm_prescription'),
+    path('patient/<int:patid>/prescription/', views.patient_prescriptions, name='patient_prescriptions'),
+    path('patient/search/', views.patient_search, name='patient_search'),
 ]

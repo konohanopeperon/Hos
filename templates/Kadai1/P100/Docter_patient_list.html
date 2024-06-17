@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>患者一覧</title>
+    <title>患者苗字検索</title>
 </head>
 <body>
-<h1>患者一覧</h1>
+<h1>患者苗字検索</h1>
 
 <form method="GET" action="{% url 'doctor_kensaku' %}">
     <input type="text" name="query" placeholder="名字で検索">
@@ -26,7 +26,7 @@
             <td>{{ patient.hokenmei }}</td>
             <td>{{ patient.hokenexp }}</td>
             <td>
-                <form method="GET" action="{% url 'medicine_cart' patient.patid %}">
+                <form method="GET" action="{% url 'prescription_list' patient.patid %}">
                     <button type="submit">処置画面</button>
                 </form>
             </td>
