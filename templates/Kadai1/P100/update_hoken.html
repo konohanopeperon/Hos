@@ -19,5 +19,10 @@
     </div>
     <button type="submit">変更確認</button>
 </form>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 </body>
 </html>

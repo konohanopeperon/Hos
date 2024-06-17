@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="医師Ⅶ完成">
-      <change afterPath="$PROJECT_DIR$/kuroobi/migrations/0005_prescription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/D100/confirmation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/D100/patientsearch.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/D100/prescripsions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/Kadai1/E100/register_success.html" afterDir="false" />
+    <list default="true" id="490d9beb-d553-4848-ad5a-6c6b57b9be88" name="変更" comment="テスト始め">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kuroobi/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kuroobi/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kuroobi/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/D100/medical.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/D100/medical.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/E100/UpdateEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/E100/UpdateEmployee.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/L100/Doctor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/L100/Doctor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Kadai1/P100/Docter_patient_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/P100/Docter_patient_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/E100/RegisterEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/E100/RegisterEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/H100/tabyouin_success.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/P100/patient_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/P100/patient_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Kadai1/P100/update_hoken.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Kadai1/P100/update_hoken.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +165,8 @@
       <workItem from="1718439662090" duration="716000" />
       <workItem from="1718489348468" duration="1453000" />
       <workItem from="1718494197961" duration="556000" />
-      <workItem from="1718583684969" duration="1271000" />
+      <workItem from="1718583684969" duration="8661000" />
+      <workItem from="1718624658271" duration="807000" />
     </task>
     <task id="LOCAL-00001" summary="up">
       <option name="closed" value="true" />
@@ -259,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718258216458</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="テスト始め">
+      <option name="closed" value="true" />
+      <created>1718585294554</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1718585294554</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -286,20 +291,26 @@
     <MESSAGE value="受付Ⅴ完成" />
     <MESSAGE value="受付Ⅴ二つ目完成" />
     <MESSAGE value="医師Ⅶ完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="医師Ⅶ完成" />
+    <MESSAGE value="テスト始め" />
+    <option name="LAST_COMMIT_MESSAGE" value="テスト始め" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kuroobi/views.py</url>
-          <line>81</line>
+          <line>88</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kuroobi/urls.py</url>
           <line>9</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kuroobi/urls.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -60,10 +60,17 @@ def register_employee(request):
         empfname = request.POST.get('empfname')
         emplname = request.POST.get('emplname')
         emppasswd = request.POST.get('emppasswd')
+        confirmemppasswd = request.POST.get('confirmemppasswd')
         emprole = request.POST.get('emprole')
 
         if Employee.objects.filter(empid=empid).exists():
             messages.error(request, 'このユーザーIDは既に存在します。')
+        elif emppasswd != confirmemppasswd:
+            messages.error(request, '入力したパスワードが一致しません')
+        elif emprole == '0':
+            messages.error(request, '管理者を登録することはできません')
+        elif emprole != '1' and emprole != '2':
+            messages.error(request, '役職は指定した数字を入力してください')
         else:
             employee = Employee(empid=empid, empfname=empfname, emplname=emplname, emppasswd=emppasswd, emprole=emprole)
             employee.save()
@@ -113,6 +120,8 @@ def tabyouin_list(request):
     query = request.GET.get('q')
     if query:
         tabyouins = Tabyouin.objects.filter(abyouinaddres__icontains=query)
+        if not tabyouins:
+            messages.error(request, '該当する病院が見つかりませんでした')
     else:
         tabyouins = Tabyouin.objects.all()
     return render(request, 'Kadai1/H100/tabyouin_list.html', {'tabyouins': tabyouins, 'query': query})
@@ -127,19 +136,16 @@ def tabyouin_register(request):
         abyouinshihonkin = request.POST.get('abyouinshihonkin')
         kyukyu = request.POST.get('kyukyu')
 
-        if Tabyouin.objects.filter(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
-                                   tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu).exists():
+        if Tabyouin.objects.filter(tabyouinid=tabyouinid).exists():
             messages.error(request, 'この病院はすでに登録されています。')
+        elif kyukyu != '0' and kyukyu != '1':
+            messages.error(request, '救急対応は指定された数字を入力してください')
         else:
             tabyouin = Tabyouin(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
                                 tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu)
             tabyouin.save()
-            return redirect('tabyouin_success')
+            return render(request, 'Kadai1/H100/tabyouin_success.html')
     return render(request, 'Kadai1/H100/tabyouin_register.html')
-
-
-def tabyouin_success(request):
-    return render(request, 'Kadai1/H100/tabyouin_success.html')
 
 
 def patient_register(request):
@@ -150,9 +156,8 @@ def patient_register(request):
         hokenmei = request.POST.get('hokenmei')
         hokenexp = request.POST.get('hokenexp')
 
-        if Patient.objects.filter(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei,
-                                  hokenexp=hokenexp).exists():
-            messages.error(request, 'この患者はすでに登録されています。')
+        if Patient.objects.filter(patid=patid).exists():
+            messages.error(request, 'この患者IDはすでに登録されています。')
         else:
             patient = Patient(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei, hokenexp=hokenexp)
             patient.save()
@@ -169,7 +174,10 @@ def update_hoken(request, patid):
     if request.method == 'POST':
         new_hokenmei = request.POST['new_hokenmei']
         new_hokenexp = request.POST['new_hokenexp']
-
+        if patient.hokenexp > new_hokenexp:
+            messages.error(request, '現在の有効期限より古い日付での更新はできません')
+        elif patient.hokenexp == new_hokenexp:
+            messages.error(request, '現在の有効期限と同じ日付になっています')
         return render(request, 'Kadai1/P100/confirm_update_hoken.html',
                       {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
     return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
@@ -196,6 +204,8 @@ def patient_kensaku(request):
         for patient in patienter:
             if patient.hokenexp <= today:
                 patients.append(patient)
+                if not patients:
+                    messages.error(request, '該当する患者が見つかりませんでした')
 
     else:
         patients = Patient.objects.all()
