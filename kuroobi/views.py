@@ -1,15 +1,12 @@
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
-
+from datetime import date, datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-
-from .forms import EmployeeForm, TabyouinForm
 from .models import Employee, Tabyouin, Patient, Medicine, Prescription
-from django.contrib.auth.hashers import check_password, make_password
 from django.shortcuts import render, get_object_or_404, redirect
 
 
@@ -169,14 +166,26 @@ def patient_success(request):
     return render(request, 'Kadai1/P100/patient_success.html')
 
 
+def string_to_date(date_string: str) -> date:
+    try:
+        # 日付文字列をdatetimeオブジェクトに
+        date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+        # datetimeオブジェクトをdateオブジェクトに変換
+        return date_obj.date()
+    except ValueError:
+        # 日付文字列のフォーマットが不正な場合
+        raise ValueError("Incorrect date format, should be YYYY-MM-DD")
+
+
 def update_hoken(request, patid):
     patient = get_object_or_404(Patient, patid=patid)
     if request.method == 'POST':
         new_hokenmei = request.POST['new_hokenmei']
         new_hokenexp = request.POST['new_hokenexp']
-        if patient.hokenexp > new_hokenexp:
+        new_hokenexp_date = string_to_date(date_string=new_hokenexp)
+        if patient.hokenexp < new_hokenexp_date:
             messages.error(request, '現在の有効期限より古い日付での更新はできません')
-        elif patient.hokenexp == new_hokenexp:
+        elif patient.hokenexp == new_hokenexp_date:
             messages.error(request, '現在の有効期限と同じ日付になっています')
         return render(request, 'Kadai1/P100/confirm_update_hoken.html',
                       {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
@@ -216,6 +225,10 @@ def doctor_kensaku(request):
     query = request.GET.get('query')
     if query:
         patients = Patient.objects.filter(patlname=query)
+        if not patients:
+            patients = Patient.objects.filter(patfname=query)
+            if not patients:
+                messages.error(request, '該当する患者が見つかりませんでした')
     else:
         patients = Patient.objects.all()
     return render(request, 'Kadai1/P100/Docter_patient_list.html', {'patients': patients, 'query': query})
@@ -232,7 +245,7 @@ def prescription_list(request, patid):
         medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
         prescription_details.append({
             'index': index,
-            'medicine_name': medicine.medicinename,
+            'medicinename': medicine.medicinename,
             'dosage': pres['dosage']
         })
 
