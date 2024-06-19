@@ -11,7 +11,11 @@
     <input type="text" name="query" placeholder="IDで検索">
     <button type="submit">検索</button>
 </form>
-
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <table border="1">
     <tr>
         <th>患者氏名</th>

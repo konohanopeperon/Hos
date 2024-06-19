@@ -35,7 +35,7 @@ class Medicine(models.Model):
     unit = models.CharField(max_length=8)
 
 
-class Prescription(models.Model):
+class Treatment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     dosage = models.CharField(max_length=64)

@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from .models import Employee, Tabyouin, Patient, Medicine, Prescription
+from .models import Employee, Tabyouin, Patient, Medicine, Treatment
 from django.shortcuts import render, get_object_or_404, redirect
 
 
@@ -14,23 +14,25 @@ def login_view(request):
     if request.method == 'POST':
         empid = request.POST['empid']
         password = request.POST["password"]
-        try:
-            employee = Employee.objects.get(empid=empid)
-        except Employee.DoesNotExist:
-            messages.error(request, "ユーザIDもしくはパスワードが違います")
-            return render(request, 'Kadai1/L100/login.html')
-
-        if employee.emppasswd == password:  # Here, normally you should hash and verify the password
-            request.session['empid'] = employee.empid
-            if employee.emprole == 0:
-                return render(request, 'Kadai1/L100/admin.html')
-            elif employee.emprole == 1:
-                return render(request, 'Kadai1/L100/reception.html', {'empid': empid})
-            elif employee.emprole == 2:
-                return render(request, 'Kadai1/L100/doctor.html', {'empid': empid})
+        if not empid or not password:
+            messages.error(request, '空白の欄があります')
         else:
-            messages.error(request, "ユーザIDもしくはパスワードが違います")
-            return render(request, 'Kadai1/L100/login.html')
+            try:
+                employee = Employee.objects.get(empid=empid)
+            except Employee.DoesNotExist:
+                messages.error(request, "ユーザIDもしくはパスワードが違います")
+                return render(request, 'Kadai1/L100/login.html')
+            if employee.emppasswd == password:  # Here, normally you should hash and verify the password
+                request.session['empid'] = employee.empid
+                if employee.emprole == 0:
+                    return render(request, 'Kadai1/L100/admin.html')
+                elif employee.emprole == 1:
+                    return render(request, 'Kadai1/L100/reception.html', {'empid': empid})
+                elif employee.emprole == 2:
+                    return render(request, 'Kadai1/L100/doctor.html', {'empid': empid})
+            else:
+                messages.error(request, "ユーザIDもしくはパスワードが違います")
+                return render(request, 'Kadai1/L100/login.html')
     return render(request, 'Kadai1/L100/login.html')
 
 
@@ -59,8 +61,9 @@ def register_employee(request):
         emppasswd = request.POST.get('emppasswd')
         confirmemppasswd = request.POST.get('confirmemppasswd')
         emprole = request.POST.get('emprole')
-
-        if Employee.objects.filter(empid=empid).exists():
+        if not empid or not empfname or not emplname or not emppasswd or not confirmemppasswd or not emprole:
+            messages.error(request, '空白の欄があります')
+        elif Employee.objects.filter(empid=empid).exists():
             messages.error(request, 'このユーザーIDは既に存在します。')
         elif emppasswd != confirmemppasswd:
             messages.error(request, '入力したパスワードが一致しません')
@@ -86,6 +89,8 @@ def employee_kensaku(request):
     query = request.GET.get('query')
     if query:
         employees = Employee.objects.filter(empid__icontains=query)
+        if not employees:
+            messages.error(request, '該当する従業員が見つかりませんでした')
     else:
         employees = Employee.objects.all()
     return render(request, 'Kadai1/E100/UpdateEmployee.html', {'employees': employees, 'query': query})
@@ -96,10 +101,12 @@ def update_employee(request, empid):
     if request.method == 'POST':
         new_password = request.POST['new_password']
         confirm_new_password = request.POST['confirm_new_password']
-
-        if new_password != confirm_new_password:
-            messages.error(request, 'パスワードが一致しません')
-        return render(request, 'Kadai1/E100/confirmpassword.html', {'employee': employee, 'new_password': new_password})
+        if not new_password or not confirm_new_password:
+            messages.error(request, '空白の欄があります')
+        else:
+            if new_password != confirm_new_password:
+                messages.error(request, 'パスワードが一致しません')
+            return render(request, 'Kadai1/E100/confirmpassword.html', {'employee': employee, 'new_password': new_password})
     return render(request, 'Kadai1/E100/passwordupdate.html', {'employee': employee})
 
 
@@ -132,8 +139,9 @@ def tabyouin_register(request):
         tabyouintel = request.POST.get('tabyouintel')
         abyouinshihonkin = request.POST.get('abyouinshihonkin')
         kyukyu = request.POST.get('kyukyu')
-
-        if Tabyouin.objects.filter(tabyouinid=tabyouinid).exists():
+        if not tabyouinid or not tabyouinmei or not abyouinaddres or not tabyouintel or not abyouinshihonkin or not kyukyu:
+            messages.error(request, '空白の欄があります')
+        elif Tabyouin.objects.filter(tabyouinid=tabyouinid).exists():
             messages.error(request, 'この病院はすでに登録されています。')
         elif kyukyu != '0' and kyukyu != '1':
             messages.error(request, '救急対応は指定された数字を入力してください')
@@ -152,8 +160,9 @@ def patient_register(request):
         patlname = request.POST.get('patlname')
         hokenmei = request.POST.get('hokenmei')
         hokenexp = request.POST.get('hokenexp')
-
-        if Patient.objects.filter(patid=patid).exists():
+        if not patid or not patfname or not patlname or not hokenmei or not hokenexp:
+            messages.error(request, ' 空白の欄があります')
+        elif Patient.objects.filter(patid=patid).exists():
             messages.error(request, 'この患者IDはすでに登録されています。')
         else:
             patient = Patient(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei, hokenexp=hokenexp)
@@ -183,12 +192,15 @@ def update_hoken(request, patid):
         new_hokenmei = request.POST['new_hokenmei']
         new_hokenexp = request.POST['new_hokenexp']
         new_hokenexp_date = string_to_date(date_string=new_hokenexp)
-        if patient.hokenexp < new_hokenexp_date:
+        if not new_hokenmei or not new_hokenexp:
+            messages.error(request, '空白の欄があります')
+        elif patient.hokenexp > new_hokenexp_date:
             messages.error(request, '現在の有効期限より古い日付での更新はできません')
         elif patient.hokenexp == new_hokenexp_date:
             messages.error(request, '現在の有効期限と同じ日付になっています')
-        return render(request, 'Kadai1/P100/confirm_update_hoken.html',
-                      {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
+        else:
+            return render(request, 'Kadai1/P100/confirm_update_hoken.html',
+                          {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
     return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
 
 
@@ -234,16 +246,16 @@ def doctor_kensaku(request):
     return render(request, 'Kadai1/P100/Docter_patient_list.html', {'patients': patients, 'query': query})
 
 
-def prescription_list(request, patid):
+def treatment_list(request, patid):
     patient = get_object_or_404(Patient, patid=patid)
     medicines = Medicine.objects.all()
-    prescriptions = request.session.get(f'prescriptions_{patid}', [])
+    treatments = request.session.get(f'treatments_{patid}', [])
 
     # 薬剤名を追加
-    prescription_details = []
-    for index, pres in enumerate(prescriptions):
+    treatment_details = []
+    for index, pres in enumerate(treatments):
         medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
-        prescription_details.append({
+        treatment_details.append({
             'index': index,
             'medicinename': medicine.medicinename,
             'dosage': pres['dosage']
@@ -252,7 +264,7 @@ def prescription_list(request, patid):
     return render(request, 'Kadai1/D100/medical.html', {
         'patient': patient,
         'medicines': medicines,
-        'prescriptions': prescription_details,
+        'treatments': treatment_details,
     })
 
 
@@ -260,43 +272,62 @@ def add_prescription(request, patid):
     medicine_id = request.POST.get('medicine')
     dosage = request.POST.get('dosage')
 
-    prescriptions = request.session.get(f'prescriptions_{patid}', [])
-    prescriptions.append({
-        'medicine': medicine_id,
-        'dosage': dosage
-    })
-    request.session[f'prescriptions_{patid}'] = prescriptions
-    return redirect('prescription_list', patid=patid)
+    try:
+        dosage = int(dosage)
+    except ValueError:
+        # dosageが整数でない場合の処理
+        # ここではエラーメッセージを表示するページにリダイレクトする例
+        return redirect('error_page')
+
+    treatments = request.session.get(f'treatments_{patid}', [])
+
+    # 薬剤が既に存在するかどうか確認
+    found = False
+    for pres in treatments:
+        if pres['medicine'] == medicine_id:
+            pres['dosage'] += dosage
+            found = True
+            break
+
+    # 存在しなければ新しく追加
+    if not found:
+        treatments.append({
+            'medicine': medicine_id,
+            'dosage': dosage
+        })
+
+    request.session[f'treatments_{patid}'] = treatments
+    return redirect('treatment_list', patid=patid)
 
 
 def delete_prescription(request, patid, index):
-    prescriptions = request.session.get(f'prescriptions_{patid}', [])
-    if 0 <= index < len(prescriptions):
-        del prescriptions[index]
-    request.session[f'prescriptions_{patid}'] = prescriptions
-    return redirect('prescription_list', patid=patid)
+    treatments = request.session.get(f'treatments_{patid}', [])
+    if 0 <= index < len(treatments):
+        del treatments[index]
+    request.session[f'treatments_{patid}'] = treatments
+    return redirect('treatment_list', patid=patid)
 
 
 def confirm_prescription(request, patid):
     if request.method == 'POST':
-        prescriptions = request.session.get(f'prescriptions_{patid}', [])
+        treatments = request.session.get(f'treatments_{patid}', [])
         patient = get_object_or_404(Patient, patid=patid)
-        for pres in prescriptions:
+        for pres in treatments:
             medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
-            Prescription.objects.create(
+            Treatment.objects.create(
                 patient=patient,
                 medicine=medicine,
                 dosage=pres['dosage'],
                 created_at=timezone.now()
             )
-        del request.session[f'prescriptions_{patid}']
-        return redirect('prescription_list', patid=patid)
+        del request.session[f'treatments_{patid}']
+        return render(request, 'Kadai1/D100/medical_success.html')
     else:
-        prescriptions = request.session.get(f'prescriptions_{patid}', [])
+        treatments = request.session.get(f'treatments_{patid}', [])
         medicine_objects = {m.medicineid: m for m in Medicine.objects.all()}
         context = {
             'patient': get_object_or_404(Patient, patid=patid),
-            'prescriptions': prescriptions,
+            'treatments': treatments,
             'medicines': medicine_objects
         }
         return render(request, 'Kadai1/D100/medical.html', context)
@@ -306,6 +337,8 @@ def patient_search(request):
     query = request.GET.get('query')
     if query:
         patients = Patient.objects.filter(patid=query)
+        if not patients:
+            messages.error(request, '該当する患者が見つかりませんでした')
     else:
         patients = Patient.objects.all()
     return render(request, 'Kadai1/D100/patientsearch.html', {'patients': patients, 'query': query})
@@ -314,5 +347,5 @@ def patient_search(request):
 def patient_prescriptions(request, patid):
     patient = get_object_or_404(Patient, patid=patid)
 
-    prescriptions = Prescription.objects.filter(patient=patient).select_related('medicine')
-    return render(request, 'Kadai1/D100/prescripsions.html', {'patient': patient, 'prescriptions': prescriptions})
+    treatments = Treatment.objects.filter(patient=patient).select_related('medicine')
+    return render(request, 'Kadai1/D100/prescripsions.html', {'patient': patient, 'treatments': treatments})

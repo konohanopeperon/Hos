@@ -24,9 +24,9 @@
 
 <h2>現在の投与指示</h2>
 <ul>
-    {% for pres in prescriptions %}
+    {% for pres in treatments %}
         <li>
-            <p>薬: {{ pres.medicine_name }}</p>
+            <p>薬: {{ pres.medicinename }}</p>
             <p>投与量: {{ pres.dosage }}</p>
             <form method="post" action="{% url 'delete_prescription' patient.patid pres.index %}" style="display:inline;">
                 {% csrf_token %}
@@ -38,7 +38,7 @@
 
 <form method="post" action="{% url 'confirm_prescription' patient.patid %}">
     {% csrf_token %}
-    <button type="submit">確認</button>
+    <button type="submit">処置確定</button>
 </form>
 </body>
 </html>

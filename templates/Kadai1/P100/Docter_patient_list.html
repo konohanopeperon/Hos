@@ -33,7 +33,7 @@
             <td>{{ patient.hokenmei }}</td>
             <td>{{ patient.hokenexp }}</td>
             <td>
-                <form method="GET" action="{% url 'prescription_list' patient.patid %}">
+                <form method="GET" action="{% url 'treatment_list' patient.patid %}">
                     <button type="submit">処置画面</button>
                 </form>
             </td>

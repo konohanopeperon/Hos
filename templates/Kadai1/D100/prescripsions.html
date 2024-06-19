@@ -16,11 +16,11 @@
     </tr>
     </thead>
     <tbody>
-    {% for prescription in prescriptions %}
+    {% for treatment in treatments %}
         <tr>
-            <td>{{ prescription.medicine.medicinename }}</td>
-            <td>{{ prescription.dosage }}</td>
-            <td>{{ prescription.created_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ treatment.medicine.medicinename }}</td>
+            <td>{{ treatment.dosage }}</td>
+            <td>{{ treatment.created_at|date:"Y-m-d" }}</td>
         </tr>
     {% endfor %}
     </tbody>
