@@ -271,15 +271,12 @@ def treatment_list(request, patid):
 def add_prescription(request, patid):
     medicine_id = request.POST.get('medicine')
     dosage = request.POST.get('dosage')
-
-    try:
-        dosage = int(dosage)
-    except ValueError:
-        # dosageが整数でない場合の処理
-        # ここではエラーメッセージを表示するページにリダイレクトする例
-        return redirect('error_page')
-
-    treatments = request.session.get(f'treatments_{patid}', [])
+    dosage = int(dosage)
+    if int(dosage) < 0:
+        messages.error(request, '数量は正の数字を入力してください')
+        return redirect('treatment_list', patid=patid)
+    else:
+        treatments = request.session.get(f'treatments_{patid}', [])
 
     # 薬剤が既に存在するかどうか確認
     found = False
@@ -312,6 +309,8 @@ def confirm_prescription(request, patid):
     if request.method == 'POST':
         treatments = request.session.get(f'treatments_{patid}', [])
         patient = get_object_or_404(Patient, patid=patid)
+        if not treatments:
+            return redirect('treatment_list', patid=patid)
         for pres in treatments:
             medicine = get_object_or_404(Medicine, medicineid=pres['medicine'])
             Treatment.objects.create(
@@ -348,4 +347,6 @@ def patient_prescriptions(request, patid):
     patient = get_object_or_404(Patient, patid=patid)
 
     treatments = Treatment.objects.filter(patient=patient).select_related('medicine')
+    if not treatments:
+        messages.error(request, 'この患者は処置されていません')
     return render(request, 'Kadai1/D100/prescripsions.html', {'patient': patient, 'treatments': treatments})
