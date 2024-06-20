@@ -26,8 +26,7 @@
 <ul>
     {% for pres in treatments %}
         <li>
-            <p>薬: {{ pres.medicinename }}</p>
-            <p>投与量: {{ pres.dosage }}</p>
+            <p>薬: {{ pres.medicinename }}投与量: {{ pres.dosage }}</p>
             <form method="post" action="{% url 'delete_prescription' patient.patid pres.index %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">削除</button>

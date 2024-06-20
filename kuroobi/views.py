@@ -298,6 +298,7 @@ def add_prescription(request, patid):
 
 
 def delete_prescription(request, patid, index):
+    index = int(index)
     treatments = request.session.get(f'treatments_{patid}', [])
     if 0 <= index < len(treatments):
         del treatments[index]
