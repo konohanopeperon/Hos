@@ -16,7 +16,7 @@
     <p>保険証情報: {{ patient.hokenmei }} 有効期限: {{ patient.hokenexp }}</p>
     <div>
         <label for="new_hokenmei">新しい保険証記号番号:</label>
-        <input type="text" id="new_hokenmei" name="new_hokenmei">
+        <input type="text" id="new_hokenmei" name="new_hokenmei" maxlength="10">
     </div>
     <div>
         <label for="new_hokenexp">新しい有効期限:</label>

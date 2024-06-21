@@ -1,6 +1,5 @@
-from typing import re
-
 from django.utils import timezone
+import re
 
 from django.shortcuts import render, redirect
 from datetime import date, datetime
@@ -210,6 +209,9 @@ def update_hoken(request, patid):
         else:
             if not new_hokenmei:
                 new_hokenmei = patient.hokenmei
+            elif not len(new_hokenmei) == 10:
+                messages.error(request, '保険証記号番号は10桁である必要があります')
+                return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
             return render(request, 'Kadai1/P100/confirm_update_hoken.html',
                           {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
     return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
@@ -315,7 +317,7 @@ def add_prescription(request, patid):
         })
 
     request.session[f'treatments_{patid}'] = treatments
-    return redirect(request, 'treatment_list', patid=patid)
+    return redirect('treatment_list', patid=patid)
 
 
 def delete_prescription(request, patid, index):
