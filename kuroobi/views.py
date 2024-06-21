@@ -1,3 +1,5 @@
+from typing import re
+
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
@@ -106,7 +108,8 @@ def update_employee(request, empid):
         else:
             if new_password != confirm_new_password:
                 messages.error(request, 'パスワードが一致しません')
-            return render(request, 'Kadai1/E100/confirmpassword.html', {'employee': employee, 'new_password': new_password})
+                return render(request, 'Kadai1/E100/passwordupdate.html', {'employee': employee})
+        return render(request, 'Kadai1/E100/confirmpassword.html', {'employee': employee, 'new_password': new_password})
     return render(request, 'Kadai1/E100/passwordupdate.html', {'employee': employee})
 
 
@@ -145,6 +148,12 @@ def tabyouin_register(request):
             messages.error(request, 'この病院はすでに登録されています。')
         elif kyukyu != '0' and kyukyu != '1':
             messages.error(request, '救急対応は指定された数字を入力してください')
+        elif not re.match(r'^[0-9()-]+$', tabyouintel):
+            messages.error(request, '電話番号は半角数字、括弧、ハイフンのみを含むことができます')
+            return render(request, 'Kadai1/H100/tabyouin_register.html')
+        elif len(tabyouintel) < 11 or len(tabyouintel) > 15:
+            messages.error(request, '電話番号は11桁から15桁でなければなりません')
+            return render(request, 'Kadai1/H100/tabyouin_register.html')
         else:
             tabyouin = Tabyouin(tabyouinid=tabyouinid, tabyouinmei=tabyouinmei, abyouinaddres=abyouinaddres,
                                 tabyouintel=tabyouintel, abyouinshihonkin=abyouinshihonkin, kyukyu=kyukyu)
@@ -164,6 +173,8 @@ def patient_register(request):
             messages.error(request, ' 空白の欄があります')
         elif Patient.objects.filter(patid=patid).exists():
             messages.error(request, 'この患者IDはすでに登録されています。')
+        elif not len(hokenmei) == 10:
+            messages.error(request, '保険証記号番号は10桁である必要があります。')
         else:
             patient = Patient(patid=patid, patfname=patfname, patlname=patlname, hokenmei=hokenmei, hokenexp=hokenexp)
             patient.save()
@@ -192,13 +203,13 @@ def update_hoken(request, patid):
         new_hokenmei = request.POST['new_hokenmei']
         new_hokenexp = request.POST['new_hokenexp']
         new_hokenexp_date = string_to_date(date_string=new_hokenexp)
-        if not new_hokenmei or not new_hokenexp:
-            messages.error(request, '空白の欄があります')
-        elif patient.hokenexp > new_hokenexp_date:
+        if patient.hokenexp > new_hokenexp_date:
             messages.error(request, '現在の有効期限より古い日付での更新はできません')
         elif patient.hokenexp == new_hokenexp_date:
             messages.error(request, '現在の有効期限と同じ日付になっています')
         else:
+            if not new_hokenmei:
+                new_hokenmei = patient.hokenmei
             return render(request, 'Kadai1/P100/confirm_update_hoken.html',
                           {'patient': patient, 'new_hokenmei': new_hokenmei, 'new_hokenexp': new_hokenexp})
     return render(request, 'Kadai1/P100/update_hoken.html', {'patient': patient})
@@ -271,12 +282,22 @@ def treatment_list(request, patid):
 def add_prescription(request, patid):
     medicine_id = request.POST.get('medicine')
     dosage = request.POST.get('dosage')
-    dosage = int(dosage)
-    if int(dosage) < 0:
+    if not dosage:
+        messages.error(request, '数量が空欄になっています')
+        return render(request, 'Kadai1/errorpage.html')
+
+    try:
+        dosage = int(dosage)
+    except ValueError:
+        messages.error(request, '数量は数字を入力してください')
+        return render(request, 'Kadai1/errorpage.html')
+
+    if dosage <= 0:
         messages.error(request, '数量は正の数字を入力してください')
-        return redirect('treatment_list', patid=patid)
-    else:
-        treatments = request.session.get(f'treatments_{patid}', [])
+        return render(request, 'Kadai1/errorpage.html')
+
+    # セッションから治療リストを取得（存在しない場合は初期化）
+    treatments = request.session.get(f'treatments_{patid}', [])
 
     # 薬剤が既に存在するかどうか確認
     found = False
@@ -294,7 +315,7 @@ def add_prescription(request, patid):
         })
 
     request.session[f'treatments_{patid}'] = treatments
-    return redirect('treatment_list', patid=patid)
+    return redirect(request, 'treatment_list', patid=patid)
 
 
 def delete_prescription(request, patid, index):
